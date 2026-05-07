@@ -1,6 +1,10 @@
-<section class="bolso-banner-section">
-  <div class="bolso-banner-wrapper">
-    <div class="bolso-banner-content">
+<section class="catalog-hero-{{ section.id }}">
+  <div class="catalog-hero__inner">
+    <div class="catalog-hero__text">
+      {% if section.settings.eyebrow != blank %}
+        <span>{{ section.settings.eyebrow }}</span>
+      {% endif %}
+
       <h2>{{ section.settings.heading }}</h2>
 
       {% if section.settings.text != blank %}
@@ -8,142 +12,312 @@
       {% endif %}
 
       {% if section.settings.button_label != blank %}
-        <a href="{{ section.settings.button_link }}" class="bolso-banner-button">
+        <a href="{{ section.settings.button_link }}" class="catalog-hero__button">
           {{ section.settings.button_label }}
+          <span>→</span>
         </a>
       {% endif %}
     </div>
 
-    <div class="bolso-banner-image-wrap">
-      <img
-        src="{{ section.settings.image | image_url: width: 900 }}"
-        alt="{{ section.settings.heading | escape }}"
-        class="bolso-banner-image"
-        loading="lazy"
-      >
+    <div class="catalog-hero__photos">
+      {% if section.settings.photo_1 != blank %}
+        <img
+          src="{{ section.settings.photo_1 | image_url: width: 700 }}"
+          alt="Foto decorativa 1"
+          class="catalog-hero__photo catalog-hero__photo--one"
+          loading="lazy"
+        >
+      {% endif %}
+
+      {% if section.settings.photo_2 != blank %}
+        <img
+          src="{{ section.settings.photo_2 | image_url: width: 700 }}"
+          alt="Foto decorativa 2"
+          class="catalog-hero__photo catalog-hero__photo--two"
+          loading="lazy"
+        >
+      {% endif %}
+    </div>
+
+    <div class="catalog-hero__bag-wrap">
+      {% if section.settings.bag_image != blank %}
+        <img
+          src="{{ section.settings.bag_image | image_url: width: 900 }}"
+          alt="{{ section.settings.heading | escape }}"
+          class="catalog-hero__bag"
+          loading="lazy"
+        >
+      {% endif %}
     </div>
   </div>
 </section>
 
 <style>
-  .bolso-banner-section {
+  .catalog-hero-{{ section.id }} {
     width: 100%;
-    padding: 70px 20px;
-    background: {{ section.settings.background_color }};
     overflow: hidden;
+    padding: 80px 22px;
+    background:
+      radial-gradient(circle at 50% 45%, rgba(255,255,255,0.75), transparent 38%),
+      {{ section.settings.background_color }};
   }
 
-  .bolso-banner-wrapper {
-    max-width: 1200px;
+  .catalog-hero-{{ section.id }} .catalog-hero__inner {
+    max-width: 1320px;
     margin: 0 auto;
-    display: flex;
+    min-height: 560px;
+    display: grid;
+    grid-template-columns: 0.9fr 0.8fr 1fr;
     align-items: center;
-    justify-content: space-between;
-    gap: 40px;
+    gap: 24px;
   }
 
-  .bolso-banner-content {
-    flex: 1;
-    max-width: 520px;
+  .catalog-hero-{{ section.id }} .catalog-hero__text {
+    position: relative;
+    z-index: 3;
   }
 
-  .bolso-banner-content h2 {
-    margin: 0 0 18px;
-    font-size: clamp(32px, 5vw, 58px);
-    line-height: 1.05;
+  .catalog-hero-{{ section.id }} .catalog-hero__text span {
+    display: inline-block;
+    margin-bottom: 18px;
+    font-size: 13px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: {{ section.settings.accent_color }};
     font-weight: 700;
+  }
+
+  .catalog-hero-{{ section.id }} .catalog-hero__text h2 {
+    margin: 0 0 22px;
     color: {{ section.settings.heading_color }};
+    font-size: clamp(42px, 5vw, 78px);
+    line-height: 0.98;
+    letter-spacing: -2px;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 600;
   }
 
-  .bolso-banner-content p {
-    margin: 0 0 28px;
-    font-size: 18px;
-    line-height: 1.6;
+  .catalog-hero-{{ section.id }} .catalog-hero__text p {
+    max-width: 430px;
+    margin: 0 0 34px;
     color: {{ section.settings.text_color }};
+    font-size: 19px;
+    line-height: 1.65;
   }
 
-  .bolso-banner-button {
+  .catalog-hero-{{ section.id }} .catalog-hero__button {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    padding: 14px 28px;
+    gap: 18px;
+    padding: 16px 34px;
     border-radius: 999px;
     background: {{ section.settings.button_bg }};
     color: {{ section.settings.button_text_color }};
     text-decoration: none;
-    font-size: 16px;
-    font-weight: 600;
-    transition: transform 0.25s ease, opacity 0.25s ease;
+    font-size: 17px;
+    font-weight: 700;
+    box-shadow: 0 18px 35px rgba(0, 0, 0, 0.14);
+    transition: transform 0.25s ease;
   }
 
-  .bolso-banner-button:hover {
-    transform: translateY(-2px);
-    opacity: 0.9;
+  .catalog-hero-{{ section.id }} .catalog-hero__button:hover {
+    transform: translateY(-3px);
   }
 
-  .bolso-banner-image-wrap {
-    flex: 1;
+  .catalog-hero-{{ section.id }} .catalog-hero__button span {
+    margin: 0;
+    color: inherit;
+    font-size: 28px;
+    letter-spacing: 0;
+    line-height: 1;
+  }
+
+  .catalog-hero-{{ section.id }} .catalog-hero__photos {
+    position: relative;
+    height: 430px;
+    z-index: 2;
+  }
+
+  .catalog-hero-{{ section.id }} .catalog-hero__photo {
+    position: absolute;
+    width: min(100%, 360px);
+    height: auto;
+    filter: drop-shadow(0 24px 28px rgba(0, 0, 0, 0.2));
+    will-change: transform;
+  }
+
+  .catalog-hero-{{ section.id }} .catalog-hero__photo--one {
+    top: 20px;
+    left: 12px;
+    z-index: 2;
+    animation: photoMoveOne-{{ section.id }} 4s ease-in-out infinite;
+  }
+
+  .catalog-hero-{{ section.id }} .catalog-hero__photo--two {
+    top: 190px;
+    left: 60px;
+    z-index: 3;
+    animation: photoMoveTwo-{{ section.id }} 4s ease-in-out infinite;
+  }
+
+  @keyframes photoMoveOne-{{ section.id }} {
+    0%, 100% {
+      transform: translateX(-14px) rotate(-7deg);
+      z-index: 2;
+    }
+    48% {
+      transform: translateX(30px) rotate(-2deg);
+      z-index: 4;
+    }
+    52% {
+      transform: translateX(34px) rotate(-2deg);
+      z-index: 4;
+    }
+  }
+
+  @keyframes photoMoveTwo-{{ section.id }} {
+    0%, 100% {
+      transform: translateX(18px) rotate(6deg);
+      z-index: 3;
+    }
+    48% {
+      transform: translateX(-30px) rotate(1deg);
+      z-index: 2;
+    }
+    52% {
+      transform: translateX(-34px) rotate(1deg);
+      z-index: 2;
+    }
+  }
+
+  .catalog-hero-{{ section.id }} .catalog-hero__bag-wrap {
+    position: relative;
     display: flex;
     justify-content: flex-end;
+    z-index: 1;
   }
 
-  .bolso-banner-image {
-    width: min(100%, {{ section.settings.image_width }}px);
+  .catalog-hero-{{ section.id }} .catalog-hero__bag-wrap::after {
+    content: "";
+    position: absolute;
+    bottom: 8px;
+    right: 14%;
+    width: 52%;
+    height: 34px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.18);
+    filter: blur(18px);
+    animation: bagShadow-{{ section.id }} 2.8s ease-in-out infinite;
+  }
+
+  .catalog-hero-{{ section.id }} .catalog-hero__bag {
+    width: min(100%, {{ section.settings.bag_width }}px);
     height: auto;
-    display: block;
-    animation: bolsoFloatPulse 3.2s ease-in-out infinite;
-    transform-origin: center;
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 32px 34px rgba(0, 0, 0, 0.18));
+    animation: bagFloatStrong-{{ section.id }} 2.8s ease-in-out infinite;
+    will-change: transform;
   }
 
-  @keyframes bolsoFloatPulse {
-    0% {
-      transform: translateY(0) scale(1);
+  @keyframes bagFloatStrong-{{ section.id }} {
+    0%, 100% {
+      transform: translateY(0) scale(1) rotate(0deg);
     }
     50% {
-      transform: translateY(-16px) scale(1.035);
-    }
-    100% {
-      transform: translateY(0) scale(1);
+      transform: translateY(-30px) scale(1.055) rotate(1deg);
     }
   }
 
-  @media screen and (max-width: 749px) {
-    .bolso-banner-section {
-      padding: 50px 18px;
+  @keyframes bagShadow-{{ section.id }} {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.2;
     }
+    50% {
+      transform: scale(0.82);
+      opacity: 0.12;
+    }
+  }
 
-    .bolso-banner-wrapper {
-      flex-direction: column;
+  @media screen and (max-width: 990px) {
+    .catalog-hero-{{ section.id }} .catalog-hero__inner {
+      grid-template-columns: 1fr;
       text-align: center;
-      gap: 30px;
+      min-height: auto;
+      gap: 36px;
     }
 
-    .bolso-banner-content {
-      max-width: 100%;
+    .catalog-hero-{{ section.id }} .catalog-hero__text p {
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    .bolso-banner-content p {
-      font-size: 16px;
+    .catalog-hero-{{ section.id }} .catalog-hero__photos {
+      height: 390px;
+      max-width: 420px;
+      width: 100%;
+      margin: 0 auto;
     }
 
-    .bolso-banner-image-wrap {
+    .catalog-hero-{{ section.id }} .catalog-hero__bag-wrap {
       justify-content: center;
     }
+  }
 
-    .bolso-banner-image {
-      width: min(100%, 340px);
+  @media screen and (max-width: 600px) {
+    .catalog-hero-{{ section.id }} {
+      padding: 55px 16px;
+    }
+
+    .catalog-hero-{{ section.id }} .catalog-hero__photos {
+      height: 320px;
+    }
+
+    .catalog-hero-{{ section.id }} .catalog-hero__photo {
+      width: 270px;
+    }
+
+    .catalog-hero-{{ section.id }} .catalog-hero__photo--one {
+      left: 0;
+      top: 10px;
+    }
+
+    .catalog-hero-{{ section.id }} .catalog-hero__photo--two {
+      left: 40px;
+      top: 155px;
+    }
+
+    .catalog-hero-{{ section.id }} .catalog-hero__bag {
+      width: min(100%, 360px);
     }
   }
 </style>
 
 {% schema %}
 {
-  "name": "Banner bolso animado",
+  "name": "Banner catálogo animado",
   "settings": [
     {
       "type": "image_picker",
-      "id": "image",
+      "id": "bag_image",
       "label": "Imagen del bolso"
+    },
+    {
+      "type": "image_picker",
+      "id": "photo_1",
+      "label": "Foto superior"
+    },
+    {
+      "type": "image_picker",
+      "id": "photo_2",
+      "label": "Foto inferior"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Texto pequeño",
+      "default": "Todo lo que necesitas"
     },
     {
       "type": "text",
@@ -155,7 +329,7 @@
       "type": "textarea",
       "id": "text",
       "label": "Texto",
-      "default": "Encuentra todo lo que necesites en un solo lugar."
+      "default": "Encuentra productos increíbles para tu día a día. Calidad, estilo y funcionalidad en un solo lugar."
     },
     {
       "type": "text",
@@ -170,12 +344,12 @@
     },
     {
       "type": "range",
-      "id": "image_width",
-      "label": "Tamaño de la imagen",
-      "min": 250,
-      "max": 700,
-      "step": 10,
-      "default": 480
+      "id": "bag_width",
+      "label": "Tamaño del bolso",
+      "min": 320,
+      "max": 760,
+      "step": 20,
+      "default": 560
     },
     {
       "type": "color",
@@ -185,32 +359,38 @@
     },
     {
       "type": "color",
+      "id": "accent_color",
+      "label": "Color texto pequeño",
+      "default": "#9a663c"
+    },
+    {
+      "type": "color",
       "id": "heading_color",
-      "label": "Color del título",
-      "default": "#2b2118"
+      "label": "Color título",
+      "default": "#2b1b10"
     },
     {
       "type": "color",
       "id": "text_color",
-      "label": "Color del texto",
-      "default": "#5f5146"
+      "label": "Color texto",
+      "default": "#4f3a2b"
     },
     {
       "type": "color",
       "id": "button_bg",
-      "label": "Color del botón",
-      "default": "#2b2118"
+      "label": "Color botón",
+      "default": "#321d0f"
     },
     {
       "type": "color",
       "id": "button_text_color",
-      "label": "Color del texto del botón",
+      "label": "Color texto botón",
       "default": "#ffffff"
     }
   ],
   "presets": [
     {
-      "name": "Banner bolso animado"
+      "name": "Banner catálogo animado"
     }
   ]
 }
