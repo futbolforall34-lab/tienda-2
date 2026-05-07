@@ -51,7 +51,11 @@
           }
         }
       },
-      "block_order": ["ann_1", "ann_2", "ann_3"],
+      "block_order": [
+        "ann_1",
+        "ann_2",
+        "ann_3"
+      ],
       "settings": {
         "speed": 4,
         "section_width": "full-width",
@@ -70,9 +74,7 @@
           "settings": {
             "hide_logo_on_home_page": false,
             "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-block-end": 0
           },
           "blocks": {}
         },
