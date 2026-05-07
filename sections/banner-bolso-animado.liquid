@@ -1,0 +1,217 @@
+<section class="bolso-banner-section">
+  <div class="bolso-banner-wrapper">
+    <div class="bolso-banner-content">
+      <h2>{{ section.settings.heading }}</h2>
+
+      {% if section.settings.text != blank %}
+        <p>{{ section.settings.text }}</p>
+      {% endif %}
+
+      {% if section.settings.button_label != blank %}
+        <a href="{{ section.settings.button_link }}" class="bolso-banner-button">
+          {{ section.settings.button_label }}
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="bolso-banner-image-wrap">
+      <img
+        src="{{ section.settings.image | image_url: width: 900 }}"
+        alt="{{ section.settings.heading | escape }}"
+        class="bolso-banner-image"
+        loading="lazy"
+      >
+    </div>
+  </div>
+</section>
+
+<style>
+  .bolso-banner-section {
+    width: 100%;
+    padding: 70px 20px;
+    background: {{ section.settings.background_color }};
+    overflow: hidden;
+  }
+
+  .bolso-banner-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .bolso-banner-content {
+    flex: 1;
+    max-width: 520px;
+  }
+
+  .bolso-banner-content h2 {
+    margin: 0 0 18px;
+    font-size: clamp(32px, 5vw, 58px);
+    line-height: 1.05;
+    font-weight: 700;
+    color: {{ section.settings.heading_color }};
+  }
+
+  .bolso-banner-content p {
+    margin: 0 0 28px;
+    font-size: 18px;
+    line-height: 1.6;
+    color: {{ section.settings.text_color }};
+  }
+
+  .bolso-banner-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 28px;
+    border-radius: 999px;
+    background: {{ section.settings.button_bg }};
+    color: {{ section.settings.button_text_color }};
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  .bolso-banner-button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+  }
+
+  .bolso-banner-image-wrap {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .bolso-banner-image {
+    width: min(100%, {{ section.settings.image_width }}px);
+    height: auto;
+    display: block;
+    animation: bolsoFloatPulse 3.2s ease-in-out infinite;
+    transform-origin: center;
+  }
+
+  @keyframes bolsoFloatPulse {
+    0% {
+      transform: translateY(0) scale(1);
+    }
+    50% {
+      transform: translateY(-16px) scale(1.035);
+    }
+    100% {
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .bolso-banner-section {
+      padding: 50px 18px;
+    }
+
+    .bolso-banner-wrapper {
+      flex-direction: column;
+      text-align: center;
+      gap: 30px;
+    }
+
+    .bolso-banner-content {
+      max-width: 100%;
+    }
+
+    .bolso-banner-content p {
+      font-size: 16px;
+    }
+
+    .bolso-banner-image-wrap {
+      justify-content: center;
+    }
+
+    .bolso-banner-image {
+      width: min(100%, 340px);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Banner bolso animado",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagen del bolso"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Revisa nuestro catálogo"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Texto",
+      "default": "Encuentra todo lo que necesites en un solo lugar."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto del botón",
+      "default": "Ver catálogo"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Enlace del botón"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "label": "Tamaño de la imagen",
+      "min": 250,
+      "max": 700,
+      "step": 10,
+      "default": 480
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Color de fondo",
+      "default": "#f6efe7"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Color del título",
+      "default": "#2b2118"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Color del texto",
+      "default": "#5f5146"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Color del botón",
+      "default": "#2b2118"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Color del texto del botón",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner bolso animado"
+    }
+  ]
+}
+{% endschema %}
