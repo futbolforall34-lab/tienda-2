@@ -99,7 +99,16 @@
     endif
   endif
   capture search
-    render 'search', style: search_style, class: search_class, display_style: section.settings.actions_display_style
+    echo '<div class="header-inline-search">'
+    echo '<form action="' | append: routes.search_url | append: '" method="get" role="search">'
+    echo '<input type="search" name="q" placeholder="Buscar productos..." autocomplete="off" value="' | append: search.terms | escape | append: '">'
+    echo '<button type="submit" aria-label="Buscar">'
+    echo '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">'
+    echo '<path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.35-4.35m0 0A7.5 7.5 0 1 0 5.5 5.5a7.5 7.5 0 0 0 11.15 11.15Z" />'
+    echo '</svg>'
+    echo '</button>'
+    echo '</form>'
+    echo '</div>'
   endcapture
 
   # Skip drawer search under specific conditions:
