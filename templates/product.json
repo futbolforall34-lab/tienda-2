@@ -197,7 +197,7 @@
                 "accordion_row_NdBezV": {
                   "type": "_accordion-row",
                   "settings": {
-                    "heading": "Description",
+                    "heading": "Descripción",
                     "open_by_default": false,
                     "icon": "none",
                     "width": 20
@@ -236,7 +236,7 @@
                 "accordion_row_iJM37V": {
                   "type": "_accordion-row",
                   "settings": {
-                    "heading": "Care",
+                    "heading": "Cuidados",
                     "open_by_default": false,
                     "icon": "none",
                     "width": 20
@@ -275,7 +275,7 @@
                 "accordion_row_pLFDcD": {
                   "type": "_accordion-row",
                   "settings": {
-                    "heading": "Design",
+                    "heading": "Diseño",
                     "open_by_default": false,
                     "icon": "none",
                     "width": 20
@@ -347,7 +347,7 @@
           "type": "text",
           "name": "t:names.header",
           "settings": {
-            "text": "<h3>You may also like</h3>",
+            "text": "<h3>También te puede interesar</h3>",
             "width": "100%",
             "max_width": "normal",
             "alignment": "center",
